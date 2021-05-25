@@ -190,7 +190,6 @@ impl Gilrs {
         } else {
             match self.inner.next_event() {
                 Some(RawEvent { id, event, time }) => {
-                    trace!("Original event: {:?}", RawEvent { id, event, time });
                     let id = GamepadId(id);
 
                     let event = match event {

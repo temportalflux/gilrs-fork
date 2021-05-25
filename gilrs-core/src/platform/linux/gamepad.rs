@@ -257,7 +257,6 @@ impl Gamepad {
         };
 
         if unsafe { !c::strstr(path.as_ptr(), b"js\0".as_ptr() as *const c_char).is_null() } {
-            trace!("Device {:?} is js interface, ignoring.", path);
             return None;
         }
 
@@ -505,7 +504,6 @@ impl Gamepad {
                     Some(EventType::AxisValueChanged(event.value, event.into()))
                 }
                 _ => {
-                    trace!("Skipping event {:?}", event);
                     None
                 }
             };
@@ -540,7 +538,6 @@ impl Gamepad {
                     None
                 } else {
                     let n = n as usize / size;
-                    trace!("Got {} new events", n);
                     for ev in event_buf[1..n].iter().rev() {
                         self.events.push(ev.assume_init());
                     }

@@ -405,8 +405,6 @@ impl Gamepad {
                         BatteryLevel::MEDIUM => 67,
                         BatteryLevel::FULL => 100,
                         lvl => {
-                            trace!("Unexpected battery level: {}", lvl.0);
-
                             100
                         }
                     };

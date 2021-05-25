@@ -149,12 +149,6 @@ pub(crate) fn run(rx: Receiver<Message>) {
     loop {
         let t1 = Instant::now();
         while let Ok(ev) = rx.try_recv() {
-            if ev.use_trace_level() {
-                trace!("New ff event: {:?}", ev);
-            } else {
-                debug!("New ff event: {:?}", ev);
-            }
-
             match ev {
                 Message::Create { id, effect } => {
                     effects.insert(id, (*effect).into());
@@ -286,12 +280,6 @@ fn combine_and_play(effects: &mut VecMap<Effect>, devices: &mut VecMap<Device>, 
                 magnitude += effect.combine_base_effects(tick, dev.position);
             }
         }
-        trace!(
-            "({:?}) Setting ff state of {:?} to {:?}",
-            tick,
-            dev,
-            magnitude
-        );
         dev.inner.set_ff_state(
             magnitude.strong,
             magnitude.weak,
